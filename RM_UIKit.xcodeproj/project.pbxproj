@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F9BFCCF92D526FDF002FFFBF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F9BFCCF82D526FDF002FFFBF /* SnapKit */; };
+		F9BFCCFC2D526FF6002FFFBF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F9BFCCFB2D526FF6002FFFBF /* Kingfisher */; };
+		F9BFCCFF2D52700F002FFFBF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F9BFCCFE2D52700F002FFFBF /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F9BFCCD02D526CBA002FFFBF /* RM_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RM_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9BFCCFF2D52700F002FFFBF /* Alamofire in Frameworks */,
+				F9BFCCFC2D526FF6002FFFBF /* Kingfisher in Frameworks */,
+				F9BFCCF92D526FDF002FFFBF /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,9 @@
 			);
 			name = RM_UIKit;
 			packageProductDependencies = (
+				F9BFCCF82D526FDF002FFFBF /* SnapKit */,
+				F9BFCCFB2D526FF6002FFFBF /* Kingfisher */,
+				F9BFCCFE2D52700F002FFFBF /* Alamofire */,
 			);
 			productName = RM_UIKit;
 			productReference = F9BFCCD02D526CBA002FFFBF /* RM_UIKit.app */;
@@ -107,6 +119,11 @@
 			);
 			mainGroup = F9BFCCC72D526CBA002FFFBF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F9BFCCF72D526FDF002FFFBF /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F9BFCCFA2D526FF6002FFFBF /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				F9BFCCFD2D52700F002FFFBF /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F9BFCCD12D526CBA002FFFBF /* Products */;
 			projectDirPath = "";
@@ -148,10 +165,12 @@
 				DEVELOPMENT_TEAM = K33FXWL25N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RM_UIKit/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -159,6 +178,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "anatoliyostapenko.github.io.RM-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -175,10 +197,12 @@
 				DEVELOPMENT_TEAM = K33FXWL25N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RM_UIKit/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -186,6 +210,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "anatoliyostapenko.github.io.RM-UIKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -333,6 +360,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9BFCCF72D526FDF002FFFBF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		F9BFCCFA2D526FF6002FFFBF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.2.0;
+			};
+		};
+		F9BFCCFD2D52700F002FFFBF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9BFCCF82D526FDF002FFFBF /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9BFCCF72D526FDF002FFFBF /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		F9BFCCFB2D526FF6002FFFBF /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9BFCCFA2D526FF6002FFFBF /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		F9BFCCFE2D52700F002FFFBF /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9BFCCFD2D52700F002FFFBF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9BFCCC82D526CBA002FFFBF /* Project object */;
 }
