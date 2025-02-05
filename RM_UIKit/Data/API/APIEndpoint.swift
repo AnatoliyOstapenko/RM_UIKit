@@ -19,3 +19,4 @@ enum APIEndpoint {
             return Endpoints.characterURL + "/\(id)"
         }
     }
+}

@@ -11,14 +11,14 @@ import Combine
 
 protocol APIServiceProtocol {
     func getCharacters() -> AnyPublisher<CharacterListResponse, APIError>
-    func getDetailCharacter(_ id: Int) -> AnyPublisher<CharacterListResponse, APIError>
+    func getDetailCharacter(_ id: Int) -> AnyPublisher<Character, APIError>
 }
 
 class APIService: APIServiceProtocol {
     func getCharacters() -> AnyPublisher<CharacterListResponse, APIError> {
         return request(endpoint: .getCharacters)
     }
-    func getDetailCharacter(_ id: Int) -> AnyPublisher<CharacterListResponse, APIError> {
+    func getDetailCharacter(_ id: Int) -> AnyPublisher<Character, APIError> {
         return request(endpoint: .getDetailCharacter(id: id))
     }
 }

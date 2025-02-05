@@ -10,6 +10,7 @@ import Foundation
 public enum Environment {
     enum Keys {
         static let baseUrl = "BASE_URL"
+        static let dbModelName = "CharacterDataModel"
     }
 
     // Accessing Info.plist
@@ -27,4 +28,6 @@ public enum Environment {
         }
         return baseUrlString
     }()
+    
+    static var dbModel: String { Keys.dbModelName }
 }
