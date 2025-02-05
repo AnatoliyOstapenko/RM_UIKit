@@ -94,8 +94,8 @@ class CharactersViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] errorMessage in
                 guard let self else { return }
-                self.showEmptyView(view: view, message: "List of characters is empty")
-                self.showAlert(title: "Error", message: errorMessage)
+                self.showEmptyView(view: view, message: Constants.emptyState)
+                self.showAlert(title: Constants.errorTitle, message: errorMessage)
             }.store(in: &cancellables)
     }
     
@@ -118,7 +118,7 @@ class CharactersViewController: UIViewController {
         if characters.isEmpty {
             self.showEmptyView(
                 view: view,
-                message: "List of characters is empty"
+                message: Constants.emptyState
             )
         } else {
             self.hideEmptyView(view: view)

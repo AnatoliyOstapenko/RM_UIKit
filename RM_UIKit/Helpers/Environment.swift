@@ -10,7 +10,7 @@ import Foundation
 public enum Environment {
     enum Keys {
         static let baseUrl = "BASE_URL"
-        static let dbModelName = "CharacterDataModel"
+        static let dbModel = "CharacterDataModel"
     }
 
     // Accessing Info.plist
@@ -29,5 +29,11 @@ public enum Environment {
         return baseUrlString
     }()
     
-    static var dbModel: String { Keys.dbModelName }
+    static var dbModel: String { Keys.dbModel }
+}
+
+// MARK: Constants
+public enum Constants {
+    static var errorTitle: String { "Error" }
+    static var emptyState: String { "List of characters is empty" }
 }

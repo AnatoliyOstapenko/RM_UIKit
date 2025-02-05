@@ -37,6 +37,7 @@ extension DetailViewModel {
                 
                 if case .failure(let error) = completion {
                     self.loadCachedCharacter { success in
+                        /// Prevent showing error and empty state if character is available in db
                         if !success {
                             self.errorMessage = error.errorDescription
                         }
