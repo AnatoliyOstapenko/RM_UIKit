@@ -221,6 +221,8 @@
 		};
 		F9BFCCE62D526CBD002FFFBF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F9BFCCD22D526CBA002FFFBF /* RM_UIKit */;
+			baseConfigurationReferenceRelativePath = App/Development.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -284,6 +286,8 @@
 		};
 		F9BFCCE72D526CBD002FFFBF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F9BFCCD22D526CBA002FFFBF /* RM_UIKit */;
+			baseConfigurationReferenceRelativePath = App/Development.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
