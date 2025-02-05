@@ -42,7 +42,10 @@ class RMCoordinator: RMCoordinatorProtocol {
             characterId: character.id,
             characterDetailUseCase: characterDetailUseCase
         )
-        let detailVC = DetailViewController(viewModel: detailViewModel)
+        let detailVC = DetailViewController(
+            viewModel: detailViewModel,
+            characterName: character.name
+        )
         navController.pushViewController(detailVC, animated: true)
     }
 }

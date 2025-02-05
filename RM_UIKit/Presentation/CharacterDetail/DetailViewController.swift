@@ -46,9 +46,10 @@ class DetailViewController: UIViewController {
     private var viewModel: DetailViewModel
     private var cancellables = Set<AnyCancellable>()
 
-    init(viewModel: DetailViewModel) {
+    init(viewModel: DetailViewModel, characterName: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        title = characterName
     }
 
     required init?(coder: NSCoder) {
@@ -131,7 +132,6 @@ class DetailViewController: UIViewController {
     }
 
     private func configure(with character: Character) {
-        title = character.name
         nameLabel.text = character.name
         statusLabel.text = character.status
         genderLabel.text = character.gender
