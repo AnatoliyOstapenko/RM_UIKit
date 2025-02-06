@@ -36,4 +36,5 @@ public enum Environment {
 public enum Constants {
     static var errorTitle: String { "Error" }
     static var emptyState: String { "List of characters is empty" }
+    static var noCharacter: String { "Character not found" }
 }

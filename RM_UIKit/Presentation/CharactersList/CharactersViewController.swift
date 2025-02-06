@@ -25,14 +25,13 @@ class CharactersViewController: UIViewController {
     }()
     
     private let emptyView = EmptyView()
-        
+    
     // MARK: Properties
     private var dataSource: UITableViewDiffableDataSource<Int, Character>!
     private var viewModel: CharactersViewModel
     weak var coordinator: RMCoordinatorProtocol?
     
     private var isLandscape: Bool = false
-    private var isLoadingMore = false
     private var cancellables = Set<AnyCancellable>()
 
     init(viewModel: CharactersViewModel) {
@@ -90,7 +89,7 @@ class CharactersViewController: UIViewController {
             .store(in: &cancellables)
 
         viewModel.$errorMessage
-            .compactMap{$0}
+            .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] errorMessage in
                 guard let self else { return }
@@ -98,7 +97,7 @@ class CharactersViewController: UIViewController {
                 self.showAlert(title: Constants.errorTitle, message: errorMessage)
             }.store(in: &cancellables)
     }
-    
+
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource<Int, Character>(tableView: tableView) { [weak self] (tableView, indexPath, character) -> UITableViewCell? in
             guard let self = self, let cell = tableView.dequeueReusableCell(withIdentifier: CharacterCell.reuseId, for: indexPath) as? CharacterCell else {
@@ -109,17 +108,14 @@ class CharactersViewController: UIViewController {
             return cell
         }
     }
-    
+
     private func updateSnapshot(with characters: [Character]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Character>()
         snapshot.appendSections([0])
         snapshot.appendItems(characters, toSection: 0)
         
         if characters.isEmpty {
-            self.showEmptyView(
-                view: view,
-                message: Constants.emptyState
-            )
+            self.showEmptyView(view: view, message: Constants.emptyState)
         } else {
             self.hideEmptyView(view: view)
         }
@@ -133,11 +129,12 @@ class CharactersViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc private func refreshData(){
+    @objc private func refreshData() {
         viewModel.loadCharacters()
     }
 }
 
+// MARK: - UITableViewDelegate
 extension CharactersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let character = viewModel.characters[indexPath.row]
@@ -145,4 +142,3 @@ extension CharactersViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
