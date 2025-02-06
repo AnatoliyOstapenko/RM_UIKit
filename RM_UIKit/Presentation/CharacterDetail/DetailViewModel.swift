@@ -15,19 +15,35 @@ class DetailViewModel {
     
     private let characterId: Int
     private let characterDetailUseCase: CharacterDetailUseCase
+    private let networkMonitor: NetworkMonitorProtocol
     private var cancellables = Set<AnyCancellable>()
     
     
-    init(characterId: Int, characterDetailUseCase: CharacterDetailUseCase) {
+    init(characterId: Int, characterDetailUseCase: CharacterDetailUseCase, networkMonitor: NetworkMonitorProtocol) {
         self.characterId = characterId
         self.characterDetailUseCase = characterDetailUseCase
-        fetchDetailCharacter()
+        self.networkMonitor = networkMonitor
+        getCharacter()
+    }
+    
+    func getCharacter() {
+        networkMonitor.isConnected
+            .removeDuplicates()
+            .sink { [weak self] isConnected in
+                guard let self = self else { return }
+                if isConnected {
+                    self.loadDetailCharacter()
+                } else {
+                    self.loadCachedCharacter() { _ in }
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
 // MARK: Online mode
 extension DetailViewModel {
-    func fetchDetailCharacter() {
+    private func loadDetailCharacter() {
         isLoading = true
         characterDetailUseCase.getDetailCharacter(characterId)
             .receive(on: DispatchQueue.main)
@@ -53,7 +69,7 @@ extension DetailViewModel {
 
 // MARK: Offline mode
 extension DetailViewModel {
-    func loadCachedCharacter(completion: @escaping (Bool) -> Void) {
+    private func loadCachedCharacter(completion: @escaping (Bool) -> Void) {
         isLoading = true
         characterDetailUseCase.getCachedDetailCharacter(for: characterId)
             .sink(receiveCompletion: { [weak self] completionResult in
