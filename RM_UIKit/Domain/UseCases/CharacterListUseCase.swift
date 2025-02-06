@@ -15,7 +15,7 @@ protocol CharacterListUseCaseProtocol {
 class CharacterListUseCase: CharacterListUseCaseProtocol {
     private let apiClient: APIServiceProtocol
     private let dbClient: DBServiceProtocol
-    
+
     init(apiClient: APIServiceProtocol, dbClient: DBServiceProtocol) {
         self.apiClient = apiClient
         self.dbClient = dbClient

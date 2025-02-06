@@ -9,21 +9,38 @@ import Combine
 import UIKit
 
 class CharactersViewModel {
+    typealias Entity = [Character]
     @Published var characters: [Character] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
     private let characterListUseCase: CharacterListUseCase
+    private let networkMonitor: NetworkMonitorProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    init(characterListUseCase: CharacterListUseCase) {
+    init(characterListUseCase: CharacterListUseCase, networkMonitor: NetworkMonitorProtocol) {
         self.characterListUseCase = characterListUseCase
-        loadCharacters()
+        self.networkMonitor = networkMonitor
+        getCharacters()
+    }
+    
+    func getCharacters() {
+        networkMonitor.isConnected
+            .removeDuplicates()
+            .sink { [weak self] isConnected in
+                guard let self = self else { return }
+                if isConnected {
+                    self.loadCharacters()
+                } else {
+                    self.loadCachedCharacters() { _ in }
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 // MARK: Online mode
 extension CharactersViewModel {
-    func loadCharacters() {
+    private func loadCharacters() {
         isLoading = true
         characterListUseCase.getOnlineCharacters()
             .receive(on: DispatchQueue.main)
@@ -50,7 +67,7 @@ extension CharactersViewModel {
  
 // MARK: Offline mode
 extension CharactersViewModel {
-    func loadCachedCharacters(completion: @escaping (Bool) -> Void)  {
+    private func loadCachedCharacters(completion: @escaping (Bool) -> Void)  {
         isLoading = true
         characterListUseCase.getCachedCharacters()
             .sink(receiveCompletion: { [weak self] completion in

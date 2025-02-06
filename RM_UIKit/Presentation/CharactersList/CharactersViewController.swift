@@ -130,7 +130,7 @@ class CharactersViewController: UIViewController {
     
     // MARK: Actions
     @objc private func refreshData() {
-        viewModel.loadCharacters()
+        viewModel.getCharacters()
     }
 }
 

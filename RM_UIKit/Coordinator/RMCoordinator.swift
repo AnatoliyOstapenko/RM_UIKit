@@ -15,11 +15,13 @@ class RMCoordinator: RMCoordinatorProtocol {
     private let navController: UINavigationController
     private let apiService: APIServiceProtocol
     private let dbService: DBServiceProtocol
+    private let networkMonitor: NetworkMonitor
 
-    init(navController: UINavigationController, apiService: APIServiceProtocol, dbService: DBServiceProtocol) {
+    init(navController: UINavigationController, apiService: APIServiceProtocol, dbService: DBServiceProtocol, networkMonitor: NetworkMonitor) {
         self.navController = navController
         self.apiService = apiService
         self.dbService = dbService
+        self.networkMonitor = networkMonitor
     }
 
     func start() {
@@ -27,7 +29,10 @@ class RMCoordinator: RMCoordinatorProtocol {
             apiClient: apiService,
             dbClient: dbService
         )
-        let viewModel = CharactersViewModel(characterListUseCase: characterListUseCase)
+        let viewModel = CharactersViewModel(
+            characterListUseCase: characterListUseCase,
+            networkMonitor: networkMonitor
+        )
         let vc = CharactersViewController(viewModel: viewModel)
         vc.coordinator = self
         navController.pushViewController(vc, animated: false)
@@ -40,7 +45,8 @@ class RMCoordinator: RMCoordinatorProtocol {
         )
         let detailViewModel = DetailViewModel(
             characterId: character.id,
-            characterDetailUseCase: characterDetailUseCase
+            characterDetailUseCase: characterDetailUseCase,
+            networkMonitor: networkMonitor
         )
         let detailVC = DetailViewController(
             viewModel: detailViewModel,

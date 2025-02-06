@@ -21,10 +21,13 @@ class AppCoordinator: Coordinator {
     
     func start() {
         let navController = UINavigationController()
+        let networkMonitor = NetworkMonitor.shared
+        
         let rmCoordinator = RMCoordinator(
             navController: navController,
             apiService: APIService(),
-            dbService: CoreDataService()
+            dbService: CoreDataService(),
+            networkMonitor: networkMonitor
         )
         rmCoordinator.start()
         childCoordinators = [rmCoordinator]
