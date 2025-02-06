@@ -10,8 +10,8 @@ import SnapKit
 import Kingfisher
 
 class CharacterCell: UITableViewCell {
-    static let reuseIdentifier = "CharacterCell"
-
+    
+    // MARK: UI Elements
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -27,9 +27,17 @@ class CharacterCell: UITableViewCell {
         return label
     }()
 
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .center
+        return stackView
+    }()
+    
     var isLandscape: Bool = false {
         didSet {
-            updateImageViewConstraints()
+            updateLayout()
         }
     }
 
@@ -44,26 +52,24 @@ class CharacterCell: UITableViewCell {
     }
 
     private func setupViews() {
-        contentView.addSubview(characterImageView)
-        contentView.addSubview(nameLabel)
+        stackView.addArrangedSubview(characterImageView)
+        stackView.addArrangedSubview(nameLabel)
+        contentView.addSubview(stackView)
     }
 
     private func setupConstraints() {
-        updateImageViewConstraints()
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(characterImageView.snp.trailing).offset(16)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-16)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8)
+        }
+        
+        characterImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(isLandscape ? 120 : 80)
         }
     }
 
-    private func updateImageViewConstraints() {
+    private func updateLayout() {
         characterImageView.snp.remakeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-            let size: CGFloat = isLandscape ? 120 : 80
-            make.width.height.equalTo(size)
+            make.width.height.equalTo(isLandscape ? 120 : 80)
         }
     }
 
@@ -72,7 +78,7 @@ class CharacterCell: UITableViewCell {
         if let url = URL(string: character.image) {
             characterImageView.kf.setImage(with: url)
         } else {
-            characterImageView.image = UIImage(systemName: "person.fill") // Placeholder image
+            characterImageView.image = UIImage(systemName: "person.fill")
         }
     }
 
@@ -81,4 +87,3 @@ class CharacterCell: UITableViewCell {
         characterImageView.image = nil
     }
 }
-

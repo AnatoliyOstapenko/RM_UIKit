@@ -32,8 +32,12 @@ extension CharactersViewModel {
                 self.isLoading = false
                 
                 if case .failure(let error) = completion {
-                    loadCachedCharacters()
-                    self.errorMessage = error.errorDescription
+                    self.loadCachedCharacters { success in
+                        /// Prevent showing error and empty state if characters are available in db
+                        if !success {
+                            self.errorMessage = error.errorDescription
+                        }
+                    }
                 }
             }, receiveValue: { [weak self] response in
                 guard let self = self else { return }
@@ -46,7 +50,7 @@ extension CharactersViewModel {
  
 // MARK: Offline mode
 extension CharactersViewModel {
-    func loadCachedCharacters() {
+    func loadCachedCharacters(completion: @escaping (Bool) -> Void)  {
         isLoading = true
         characterListUseCase.getCachedCharacters()
             .sink(receiveCompletion: { [weak self] completion in

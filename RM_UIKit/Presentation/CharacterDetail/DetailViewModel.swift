@@ -21,6 +21,7 @@ class DetailViewModel {
     init(characterId: Int, characterDetailUseCase: CharacterDetailUseCase) {
         self.characterId = characterId
         self.characterDetailUseCase = characterDetailUseCase
+        fetchDetailCharacter()
     }
 }
 
@@ -35,7 +36,12 @@ extension DetailViewModel {
                 self.isLoading = false
                 
                 if case .failure(let error) = completion {
-                    self.errorMessage = error.errorDescription
+                    self.loadCachedCharacter { success in
+                        /// Prevent showing error and empty state if character is available in db
+                        if !success {
+                            self.errorMessage = error.errorDescription
+                        }
+                    }
                 }
             }, receiveValue: { [weak self] character in
                 guard let self = self else { return }
@@ -47,19 +53,21 @@ extension DetailViewModel {
 
 // MARK: Offline mode
 extension DetailViewModel {
-    func loadCachedCharacter() {
+    func loadCachedCharacter(completion: @escaping (Bool) -> Void) {
         isLoading = true
-        characterDetailUseCase.getDetailCharacter(characterId)
-            .sink(receiveCompletion: { [weak self] completion in
+        characterDetailUseCase.getCachedDetailCharacter(for: characterId)
+            .sink(receiveCompletion: { [weak self] completionResult in
                 guard let self = self else { return }
                 self.isLoading = false
                 
-                if case .failure(let error) = completion {
+                if case .failure(let error) = completionResult {
                     self.errorMessage = error.errorDescription
+                    completion(false)
                 }
             }, receiveValue: { [weak self] cached in
                 guard let self = self else { return }
                 self.character = cached
+                completion(true)
             })
             .store(in: &cancellables)
     }

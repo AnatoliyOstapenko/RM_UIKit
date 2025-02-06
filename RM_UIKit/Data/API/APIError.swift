@@ -18,7 +18,7 @@ enum APIError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .offline:
-            return "No internet"
+            return "No Internet connection, it is required to run the application for the first time"
         case .requestFailed(let error):
             return "An request error occurred: \(error.localizedDescription)"
         case .decodingError(let error):
