@@ -10,34 +10,25 @@ import Combine
 protocol CharacterListUseCaseProtocol {
     func getOnlineCharacters() -> AnyPublisher<CharacterListResponse, APIError>
     func getCachedCharacters() -> AnyPublisher<[Character], CoreDataError>
+    func saveCharactersToCache(characters: [Character]) -> AnyPublisher<Void, CoreDataError>
 }
 
 class CharacterListUseCase: CharacterListUseCaseProtocol {
-    private let apiClient: APIServiceProtocol
-    private let dbClient: DBServiceProtocol
-
-    init(apiClient: APIServiceProtocol, dbClient: DBServiceProtocol) {
-        self.apiClient = apiClient
-        self.dbClient = dbClient
+    private let repository: CharacterListRepositoryProtocol
+    
+    init(repository: CharacterListRepositoryProtocol) {
+        self.repository = repository
     }
-
+    
     func getOnlineCharacters() -> AnyPublisher<CharacterListResponse, APIError> {
-        return apiClient.getCharacters()
+        return repository.getOnlineCharacters()
     }
-
+    
     func getCachedCharacters() -> AnyPublisher<[Character], CoreDataError> {
-        return dbClient.fetchAllCharacters()
+        return repository.getCachedCharacters()
     }
     
     func saveCharactersToCache(characters: [Character]) -> AnyPublisher<Void, CoreDataError> {
-        // Delete previous characters and save a new characters
-        return dbClient.deleteAllCharacters()
-            .flatMap { _ in
-                Publishers.MergeMany(characters.map { self.dbClient.saveCharacter($0) })
-                    .collect()
-                    .map { _ in () }
-                    .eraseToAnyPublisher()
-            }
-            .eraseToAnyPublisher()
+        return repository.saveCharactersToCache(characters: characters)
     }
 }

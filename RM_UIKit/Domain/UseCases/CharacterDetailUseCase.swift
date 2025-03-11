@@ -13,19 +13,17 @@ protocol CharacterDetailUseCaseProtocol {
 }
 
 class CharacterDetailUseCase: CharacterDetailUseCaseProtocol {
-    private let apiClient: APIServiceProtocol
-    private let dbClient: DBServiceProtocol
+    private let repository: CharacterDetailRepositoryProtocol
     
-    init(apiClient: APIServiceProtocol, dbClient: DBServiceProtocol) {
-        self.apiClient = apiClient
-        self.dbClient = dbClient
+    init(repository: CharacterDetailRepositoryProtocol) {
+        self.repository = repository
     }
     
     func getDetailCharacter(_ id: Int) -> AnyPublisher<Character, APIError> {
-        return apiClient.getDetailCharacter(id)
+        return repository.getDetailCharacter(id)
     }
     
     func getCachedDetailCharacter(for id: Int) -> AnyPublisher<Character?, CoreDataError> {
-        return dbClient.fetchDetailCharacter(id: id)
+        return repository.getCachedDetailCharacter(for: id)
     }
 }
