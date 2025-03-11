@@ -25,10 +25,11 @@ class RMCoordinator: RMCoordinatorProtocol {
     }
 
     func start() {
-        let characterListUseCase = CharacterListUseCase(
+        let repository = CharacterListRepository(
             apiClient: apiService,
             dbClient: dbService
         )
+        let characterListUseCase = CharacterListUseCase(repository: repository)
         let viewModel = CharactersViewModel(
             characterListUseCase: characterListUseCase,
             networkMonitor: networkMonitor
@@ -39,10 +40,11 @@ class RMCoordinator: RMCoordinatorProtocol {
     }
 
     func showDetail(for character: Character) {
-        let characterDetailUseCase = CharacterDetailUseCase(
+        let repository = CharacterDetailRepository(
             apiClient: apiService,
             dbClient: dbService
         )
+        let characterDetailUseCase = CharacterDetailUseCase(repository: repository)
         let detailViewModel = DetailViewModel(
             characterId: character.id,
             characterDetailUseCase: characterDetailUseCase,
