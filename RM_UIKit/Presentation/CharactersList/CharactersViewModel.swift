@@ -70,16 +70,18 @@ extension CharactersViewModel {
     private func loadCachedCharacters(completion: @escaping (Bool) -> Void)  {
         isLoading = true
         characterListUseCase.getCachedCharacters()
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink(receiveCompletion: { [weak self] completionResult in
                 guard let self = self else { return }
                 self.isLoading = false
                 
-                if case .failure(let error) = completion {
+                if case .failure(let error) = completionResult {
                     self.errorMessage = error.errorDescription
+                    completion(false)
                 }
             }, receiveValue: { [weak self] cached in
                 guard let self = self else { return }
                 self.characters = cached
+                completion(true)
             })
             .store(in: &cancellables)
     }
