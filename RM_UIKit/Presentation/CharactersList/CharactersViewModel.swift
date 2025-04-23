@@ -9,7 +9,6 @@ import Combine
 import UIKit
 
 class CharactersViewModel {
-    typealias Entity = [Character]
     @Published var characters: [Character] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
